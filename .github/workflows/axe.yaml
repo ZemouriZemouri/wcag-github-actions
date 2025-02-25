@@ -1,4 +1,4 @@
-name: axe
+name: axe accessibility test
 on: 
   push:
     branches: [main]
