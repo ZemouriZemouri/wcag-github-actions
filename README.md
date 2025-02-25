@@ -16,7 +16,7 @@ This is a demo repository to illustrate how to test web accessibility using Gith
     │          └── ...
     └── ...
 
-## Author & Contributors
+## Source
 
 This repo is based on this project:
 - [a11y](https://github.com/SomeAnticsDev/a11y-github-actions)
