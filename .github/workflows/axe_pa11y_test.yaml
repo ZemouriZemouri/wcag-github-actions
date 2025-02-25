@@ -33,7 +33,9 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y libgbm-dev google-chrome-stable
     - name: Run Axe Pa11y
+      env:
+        PUPPETEER_ARGS: "--no-sandbox --headless=new"
       run: |
         npm install -g pa11y
-        npx pa11y --runner htmlcs --reporter json --chrome-flags="--no-sandbox" http://localhost:3000
+        npx pa11y --runner htmlcs --reporter json http://localhost:3000
       # pa11y http://localhost:3000
