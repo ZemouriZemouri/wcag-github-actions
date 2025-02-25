@@ -1,11 +1,11 @@
-name: axe
+name: pa11y
 on: 
   push:
     branches: [main]
   pull_request:
     branches: [main]
 jobs:
-  axe:
+  pa11y:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -23,14 +23,8 @@ jobs:
       env:
         NODE_OPTIONS: --openssl-legacy-provider
     - name: Start server and test
-      run: |
-        npm install -g serve
-        npm run build
-        serve -s build -l 3000 &
-        npx wait-on http://localhost:3000 
-      # Voer hier je tests uit 
-      # run: npm start & npx await-on http://localhost:3000
+      run: npm start & npx wait-on http://localhost:3000
     - name: Run Axe
       run: |
-        npm install -g @axe-core/cli
-        axe http://localhost:3000 --exit
+        npm install -g pa11y
+        pa11y http://localhost:3000
