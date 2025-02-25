@@ -8,9 +8,9 @@ jobs:
   axe:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@latest
+    - uses: actions/checkout@v4
     - name: Use NodeJS 23.x
-      uses: actions/setup-node@latest
+      uses: actions/setup-node@v3
       with: 
         node-version: 23.x
     - run: npm ci
