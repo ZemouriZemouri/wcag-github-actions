@@ -17,11 +17,14 @@ This is a demo repository to illustrate how to test web accessibility using Gith
     │           └── ...
     └── ...
 
-## Requirements & GitHub Extension
+## Requirements
 
 - [Axe](https://www.deque.com/axe/)
-- [Axe linter](https://github.com/marketplace/axe-linter)
 - [Pa11y](https://pa11y.org/)
+
+## GitHub Extension
+
+- [Axe linter](https://github.com/marketplace/axe-linter)
 
 ## Source
 
