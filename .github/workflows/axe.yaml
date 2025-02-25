@@ -17,6 +17,7 @@ jobs:
     - run: npm install typescript@4.x
     - run: npm install @typescript-eslint/parser@latest @typescript-eslint/eslint-plugin@latest
     - run: npm install @testing-library/jest-dom@latest
+    - run: npm install await-on --save-dev
     - run: npm ci
     - run: npm run build --if-present
       env:
