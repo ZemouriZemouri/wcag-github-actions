@@ -28,7 +28,12 @@ jobs:
         npm run build
         serve -s build -l 3000 &
         npx wait-on http://localhost:3000
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libgbm-dev google-chrome-stable
     - name: Run Axe Pa11y
       run: |
         npm install -g pa11y
-        pa11y http://localhost:3000
+        npx pa11y --runner htmlcs --reporter json --chrome-flags="--no-sandbox" http://localhost:3000
+      # pa11y http://localhost:3000
