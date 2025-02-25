@@ -1,0 +1,39 @@
+name: lighthouse
+on: 
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use nodeJS 18.x
+      uses: actions/setup-node@v3
+      with: 
+        node-version: 18.x
+    - run: |
+       npm install  
+       npm install react-scripts@5.0.1
+       npm install typescript@4.x
+       npm install @typescript-eslint/parser@latest @typescript-eslint/eslint-plugin@latest
+       npm install @testing-library/jest-dom@latest
+       npm run build
+    - run: npm install --save-dev wait-on
+      env:
+        NODE_OPTIONS: --openssl-legacy-provider
+    - name: Start server and test
+      run: |
+        npm install -g serve
+        npm run build
+        serve -s build -l 3000 &
+        npx wait-on http://localhost:3000
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libgbm-dev google-chrome-stable
+    - name: Run Lighthouse
+      run: |
+        npm install -g @lhci/cli@0.14.0
+        npx lhci autorun
