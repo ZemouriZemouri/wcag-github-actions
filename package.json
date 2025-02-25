@@ -1,5 +1,5 @@
 {
-  "name": "a11y-github-actions",
+  "name": "wcag-github-actions",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
