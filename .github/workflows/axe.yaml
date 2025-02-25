@@ -28,8 +28,6 @@ jobs:
         npm run build
         serve -s build -l 3000 &
         npx wait-on http://localhost:3000 
-      # Voer hier je tests uit 
-      # run: npm start & npx await-on http://localhost:3000
     - name: Run Axe
       run: |
         npm install -g @axe-core/cli
