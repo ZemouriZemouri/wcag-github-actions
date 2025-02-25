@@ -5,15 +5,16 @@ This is a demo repository to illustrate how to test web accessibility using Gith
 ## Folder structure
 
     .
-    ├── ...
+    ├── .github
+    │      └── workflows                      # The GitHub Actions workflows
+    │             ├── axe_test.yaml           # Accessibility Test library
+    │             └── lighthouse_report.yaml  # Accessibility Report library
+    |             └── pa11y_test.yaml         # Accessibility Test library
+    ├── public
     ├── src
-    │    ├──.github
-    │    │     └── workflows                 # The GitHub Actions workflows
-    │    │           ├── workflowName.yml
-    │    │           └── ...
-    │    └── components                      # Custom components
-    │          ├── Component.tsx
-    │          └── ...
+    │    └── components                       # Custom components
+    │           ├── image.jpeg
+    │           └── ...
     └── ...
 
 ## Requirements & GitHub Extension
