@@ -1,4 +1,4 @@
-# wcag-github-actions
+# Accessibility Test - GitHub Actions
 
 This is a demo repository to illustrate how to test web accessibility using Github Actions.
 
