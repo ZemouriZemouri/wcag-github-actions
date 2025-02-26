@@ -2,7 +2,7 @@
 
 This is a demo repository to illustrate how to test web accessibility using Github Actions.
 
-## Folder structure
+### Folder structure
 
     .
     ├── .github
@@ -17,16 +17,16 @@ This is a demo repository to illustrate how to test web accessibility using Gith
     │           └── ...
     └── ...
 
-## Requirements
+### Requirements
 
 - [Axe](https://www.deque.com/axe/)
 - [Pa11y](https://pa11y.org/)
 
-## GitHub Extension
+### GitHub Extension
 
 - [Axe linter](https://github.com/marketplace/axe-linter)
 
-## Source
+### Source
 
 This repo is based on this project/documentation:
 - [a11y](https://github.com/bolonio/a11y-github-actions)
