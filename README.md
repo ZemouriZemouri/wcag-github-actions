@@ -1,6 +1,6 @@
 # Accessibility Test - GitHub Actions
 
-This is a demo repository to illustrate how to test web accessibility using Github Actions.
+This is a demo repository to illustrate how to test web accessibility (based on [wcag](https://www.w3.org/TR/wcag-3.0/)) using Github Actions.
 
 ## Folder structure
 
