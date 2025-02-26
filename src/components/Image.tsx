@@ -1,5 +1,5 @@
 import React from "react"
-import myImage from "./QA.png"
+import myImage from "./qa.png"
 
 export const Image: React.FC<{ alt?: string; role?: string }> = ({
   alt,
