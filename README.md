@@ -1,4 +1,4 @@
-# Accessibility Test - GitHub Actions
+# Web Accessibility Test - GitHub Actions
 
 This is a demo repository to illustrate how to test web accessibility (based on [wcag](https://www.w3.org/TR/wcag-3.0/)) using Github Actions.
 
@@ -20,14 +20,16 @@ This is a demo repository to illustrate how to test web accessibility (based on 
 ## Requirements
 
 - [Axe](https://www.deque.com/axe/)
+- [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview)
 - [Pa11y](https://pa11y.org/)
 
-## GitHub Extension
+## Extensions
 
 - [Axe linter](https://github.com/marketplace/axe-linter)
+- [Lighthouse](https://chromewebstore.google.com/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk)
 
 ## Source
 
 This repo is based on this project/documentation:
 - [a11y](https://github.com/bolonio/a11y-github-actions)
-- More info on [a11y-project](https://www.a11yproject.com/) 
+- More info on [a11y-project](https://www.a11yproject.com/)
