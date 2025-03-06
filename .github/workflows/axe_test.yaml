@@ -42,6 +42,8 @@ jobs:
         serve -s build -l 3000 &
         npx wait-on http://localhost:3000
         TEMP_DIR=$(mktemp -d)
-        axe http://localhost:3000 --exit --chrome-options="--no-sandbox --user-data-dir=$TEMP_DIR --disable-dev-shm-usage --headless"
+        TEMP_SUBDIR="$TEMP_DIR/chrome-profile"
+        mkdir -p $TEMP_SUBDIR
+        axe http://localhost:3000 --exit --chrome-options="--no-sandbox --user-data-dir=$TEMP_SUBDIR --disable-dev-shm-usage --headless --no-first-run --no-default-browser-check"
         kill %1
         rm -rf $TEMP_DIR
