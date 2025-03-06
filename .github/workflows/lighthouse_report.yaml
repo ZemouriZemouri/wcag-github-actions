@@ -61,7 +61,7 @@ jobs:
         LHCI_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Upload Lighthouse report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: lighthouse-report-${{ github.run_id }}
         path: './lighthouse-results'

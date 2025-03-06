@@ -22,7 +22,7 @@ jobs:
         node-version: 18.x
 
     - name: Install dependencies and build
-      working-directory: wcag  # Alle commands in deze stap lopen in de wcag map
+      working-directory: wcag-github-actions  # Alle commands in deze stap lopen in de wcag map
       env:
         NODE_OPTIONS: '--openssl-legacy-provider'
       run: |
@@ -35,7 +35,7 @@ jobs:
         npm run build --if-present
 
     - name: Run accessibility tests
-      working-directory: wcag
+      working-directory: wcag-github-actions
       run: |
         npm install -g serve @axe-core/cli
         serve -s build -l 3000 &
