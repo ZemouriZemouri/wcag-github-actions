@@ -16,21 +16,16 @@ jobs:
     - name: Install Node.js 18.x
       uses: actions/setup-node@v4
       with:
-        node-version: 18.x
+        node-version: '18.x'
 
-    - name: Install Chrome and ChromeDriver
+    - name: Install Chrome
       run: |
         sudo apt-get update
         sudo apt-get install -y google-chrome-stable
-        CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+\.\d+')
-        CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION%.*}")
-        wget -q "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
-        sudo unzip chromedriver_linux64.zip -d /usr/local/bin/
-        sudo chmod +x /usr/local/bin/chromedriver
 
     - name: Install dependencies and build
       env:
-        NODE_OPTIONS: --openssl-legacy-provider
+        NODE_OPTIONS: '--openssl-legacy-provider'
       run: |
         npm install react-scripts@5.0.1
         npm install typescript@4.x
@@ -42,9 +37,8 @@ jobs:
 
     - name: Run accessibility tests
       run: |
-        npm install -g serve
+        npm install -g serve @axe-core/cli
         serve -s build -l 3000 &
         npx wait-on http://localhost:3000
-        npm install -g @axe-core/cli
-        axe http://localhost:3000 --exit --chromedriver-path=/usr/local/bin/chromedriver
+        axe http://localhost:3000 --exit
         kill %1
