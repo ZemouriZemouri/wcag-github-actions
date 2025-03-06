@@ -18,10 +18,11 @@ jobs:
       with:
         node-version: '18.x'
 
-    - name: Install Chrome
+    - name: Install Chrome with browser-driver-manager
       run: |
         sudo apt-get update
-        sudo apt-get install -y google-chrome-stable
+        npm install -g browser-driver-manager
+        npx browser-driver-manager install chrome
 
     - name: Install dependencies and build
       env:
