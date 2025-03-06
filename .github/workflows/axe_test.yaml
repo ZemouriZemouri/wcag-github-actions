@@ -19,14 +19,18 @@ jobs:
         node-version: 18.x
 
     - name: Install Chrome
-      uses: browser-actions/setup-chrome@v1
+      uses: actions/setup-chrome@v1
       with:
-        chrome-version: latest  # Gebruik expliciet de laatste versie
+        chrome-version: latest
 
     - name: Install ChromeDriver
-      uses: browser-actions/setup-chromedriver@v1
-      with:
-        chrome-version: latest  # Synchroniseer versie met Chrome
+      run: |
+        CHROME_VERSION=$(google-chrome --version | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+        CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
+        wget -q "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
+        unzip chromedriver_linux64.zip -d /usr/local/bin/
+        chmod +x /usr/local/bin/chromedriver
+      shell: bash
 
     - name: Install dependencies and build
       working-directory: wcag
@@ -48,5 +52,5 @@ jobs:
         serve -s build -l 3000 &
         npx wait-on http://localhost:3000
         npm install -g @axe-core/cli
-        axe http://localhost:3000 --exit --chromedriver-path=$CHROMEDRIVER_PATH
+        axe http://localhost:3000 --exit --chromedriver-path=/usr/local/bin/chromedriver
         kill %1
