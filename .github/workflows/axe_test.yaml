@@ -21,7 +21,7 @@ jobs:
     - name: Install Chrome
       run: |
         sudo apt-get update
-        npx browser-driver-manager install chrome
+        sudo apt-get install -y google-chrome-stable
 
     - name: Install dependencies and build
       env:
@@ -40,5 +40,5 @@ jobs:
         npm install -g serve @axe-core/cli
         serve -s build -l 3000 &
         npx wait-on http://localhost:3000
-        axe http://localhost:3000 --exit
+        axe http://localhost:3000 --exit --chrome-options="--no-sandbox --user-data-dir=$(mktemp -d)"
         kill %1
