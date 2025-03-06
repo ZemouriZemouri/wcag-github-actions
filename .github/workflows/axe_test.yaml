@@ -41,5 +41,7 @@ jobs:
         npm install -g serve @axe-core/cli
         serve -s build -l 3000 &
         npx wait-on http://localhost:3000
-        axe http://localhost:3000 --exit --chrome-options="--no-sandbox --user-data-dir=$(mktemp -d)"
+        TEMP_DIR=$(mktemp -d)
+        axe http://localhost:3000 --exit --chrome-options="--no-sandbox --user-data-dir=$TEMP_DIR --disable-dev-shm-usage --headless"
         kill %1
+        rm -rf $TEMP_DIR
