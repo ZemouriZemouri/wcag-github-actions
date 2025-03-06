@@ -29,7 +29,6 @@ jobs:
         chrome-version: latest
 
     - name: Install dependencies and build
-      working-directory: wcag
       env:
         NODE_OPTIONS: --openssl-legacy-provider
       run: |
@@ -42,7 +41,6 @@ jobs:
         npm run build --if-present
 
     - name: Run accessibility tests
-      working-directory: wcag
       run: |
         npm install -g serve
         serve -s build -l 3000 &
