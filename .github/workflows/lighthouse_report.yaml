@@ -1,39 +1,71 @@
-name: lighthouse
-on: 
+name: Lighthouse Performance Audit
+
+on:
+  workflow_dispatch:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+
 jobs:
-  lighthouse:
+  lighthouse_audit:
+    name: Run Lighthouse Audit
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v4
-    - name: Use NodeJS 18.x
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install Node.js 18.x
       uses: actions/setup-node@v3
-      with: 
+      with:
         node-version: 18.x
-    - run: |
-       npm install  
-       npm install react-scripts@5.0.1
-       npm install typescript@4.x
-       npm install @typescript-eslint/parser@latest @typescript-eslint/eslint-plugin@latest
-       npm install @testing-library/jest-dom@latest
-       npm run build
-    - run: npm install --save-dev wait-on
+
+    - name: Install dependencies and build
       env:
-        NODE_OPTIONS: --openssl-legacy-provider
-    - name: Start server and test
+        NODE_OPTIONS: '--openssl-legacy-provider'
       run: |
-        npm install -g serve
+        npm install
+        npm install react-scripts@5.0.1
+        npm install typescript@4.x
+        npm install @typescript-eslint/parser@latest @typescript-eslint/eslint-plugin@latest
+        npm install @testing-library/jest-dom@latest
         npm run build
-        serve -s build -l 3000 &
-        npx wait-on http://localhost:3000
-    - name: Install dependencies
+
+    - name: Install system dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y libgbm-dev google-chrome-stable
-    - name: Run Lighthouse
+
+    - name: Start test server
+      run: |
+        npm install -g serve
+        serve -s build -l 3000 &
+        npx wait-on http://localhost:3000
+
+    - name: Run Lighthouse audit
       run: |
         npm install -g @lhci/cli@0.14.0
         npx lhci autorun
+      env:
+        LHCI_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Stop test server
+      run: kill $(lsof -t -i:3000)
+
+    - name: Run Lighthouse audit
+      run: |
+        npm install -g @lhci/cli@0.14.0
+        npx lhci autorun --config=./lighthouserc.json
+      env:
+        LHCI_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload Lighthouse report
+      uses: actions/upload-artifact@v3
+      with:
+        name: lighthouse-report-${{ github.run_id }}
+        path: './lighthouse-results'
+        retention-days: 7
+
+    - name: Stop test server
+      run: kill $(lsof -t -i:3000)

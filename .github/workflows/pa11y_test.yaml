@@ -1,39 +1,55 @@
-name: pa11y
-on: 
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+name: Pa11y Accessibility Audit
+
+on:
+  workflow_dispatch:
+  pull_request:       
+  push:               
+    branches:
+      - main
+
 jobs:
-  pa11y:
+  pa11y_test:
+    name: Run Pa11y Accessibility Audit
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v4
-    - name: Use nodeJS 18.x
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install Node.js 18.x
       uses: actions/setup-node@v3
-      with: 
+      with:
         node-version: 18.x
-    - run: npm install react-scripts@5.0.1
-    - run: npm install typescript@4.x
-    - run: npm install @typescript-eslint/parser@latest @typescript-eslint/eslint-plugin@latest
-    - run: npm install @testing-library/jest-dom@latest
-    - run: npm install --save-dev wait-on
-    - run: npm ci
-    - run: npm run build --if-present
+
+    - name: Install project dependencies
+      run: |
+        npm install react-scripts@5.0.1
+        npm install typescript@4.x
+        npm install @typescript-eslint/parser@latest @typescript-eslint/eslint-plugin@latest
+        npm install @testing-library/jest-dom@latest
+        npm install --save-dev wait-on
+
+    - name: Clean install
+      run: npm ci
+
+    - name: Build project
+      run: npm run build --if-present
       env:
-        NODE_OPTIONS: --openssl-legacy-provider
-    - name: Start server and test
+        NODE_OPTIONS: '--openssl-legacy-provider'
+
+    - name: Install Chrome dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libgbm-dev google-chrome-stable
+
+    - name: Start test server
       run: |
         npm install -g serve
         npm run build
         serve -s build -l 3000 &
         npx wait-on http://localhost:3000
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y libgbm-dev google-chrome-stable
-    - name: Run Axe Pa11y
+
+    - name: Run Pa11y audit
       run: |
         npm install -g pa11y@latest
         npx pa11y --config .pa11yrc.json http://localhost:3000
-      # pa11y http://localhost:3000

@@ -1,34 +1,44 @@
-name: axe
-on: 
+name: Accessibility Tests with Axe
+
+on:
+  workflow_dispatch:  # Handmatige trigger
   push:
     branches: [main]
   pull_request:
     branches: [main]
+
 jobs:
-  axe:
+  axe_test:
+    name: Run Axe Accessibility Tests
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v4
-    - name: Use nodeJS 18.x
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install Node.js 18.x
       uses: actions/setup-node@v3
-      with: 
+      with:
         node-version: 18.x
-    - run: npm install react-scripts@5.0.1
-    - run: npm install typescript@4.x
-    - run: npm install @typescript-eslint/parser@latest @typescript-eslint/eslint-plugin@latest
-    - run: npm install @testing-library/jest-dom@latest
-    - run: npm install --save-dev wait-on
-    - run: npm ci
-    - run: npm run build --if-present
+
+    - name: Install dependencies and build
+      working-directory: wcag  # Alle commands in deze stap lopen in de wcag map
       env:
-        NODE_OPTIONS: --openssl-legacy-provider
-    - name: Start server and test
+        NODE_OPTIONS: '--openssl-legacy-provider'
       run: |
-        npm install -g serve
-        npm run build
+        npm install react-scripts@5.0.1
+        npm install typescript@4.x
+        npm install --save-dev @typescript-eslint/eslint-plugin@5.59.0 @typescript-eslint/parser@5.59.0
+        npm install @testing-library/jest-dom@latest
+        npm install --save-dev wait-on
+        npm ci
+        npm run build --if-present
+
+    - name: Run accessibility tests
+      working-directory: wcag
+      run: |
+        npm install -g serve @axe-core/cli
         serve -s build -l 3000 &
-        npx wait-on http://localhost:3000 
-    - name: Run Axe
-      run: |
-        npm install -g @axe-core/cli
+        npx wait-on http://localhost:3000
         axe http://localhost:3000 --exit
+        kill $(lsof -t -i:3000)  # Betrouwbaardere manier om server te stoppen
