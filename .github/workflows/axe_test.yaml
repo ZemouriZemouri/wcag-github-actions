@@ -1,14 +1,11 @@
-name: Accessibility Tests with Axe
+name: Axe Accessibility Tests
 
 on:
-  workflow_dispatch:  # Handmatige trigger
   push:
-    branches: [main]
-  pull_request:
     branches: [main]
 
 jobs:
-  axe_test:
+  axe-test:
     name: Run Axe Accessibility Tests
     runs-on: ubuntu-latest
 
@@ -21,9 +18,20 @@ jobs:
       with:
         node-version: 18.x
 
+    - name: Install Chrome
+      uses: actions/setup-chrome@v1
+      with:
+        chrome-version: latest
+
+    - name: Install ChromeDriver
+      uses: actions/setup-chromedriver@v1
+      with:
+        chrome-version: latest
+
     - name: Install dependencies and build
+      working-directory: wcag
       env:
-        NODE_OPTIONS: '--openssl-legacy-provider'
+        NODE_OPTIONS: --openssl-legacy-provider
       run: |
         npm install react-scripts@5.0.1
         npm install typescript@4.x
@@ -34,9 +42,13 @@ jobs:
         npm run build --if-present
 
     - name: Run accessibility tests
+      working-directory: wcag
       run: |
-        npm install -g serve @axe-core/cli
+        npm install -g serve
         serve -s build -l 3000 &
         npx wait-on http://localhost:3000
-        axe http://localhost:3000 --exit
-        kill $(lsof -t -i:3000)  # Betrouwbaardere manier om server te stoppen
+        npm install -g @axe-core/cli
+        axe http://localhost:3000 --exit --chromedriver-path=$CHROMEDRIVER_PATH
+        kill %1
+      env:
+        CHROMEDRIVER_PATH: ${{ env.CHROMEDRIVER_PATH }}
