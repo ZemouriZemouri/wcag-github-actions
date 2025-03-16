@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quality Accelerators</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #f8f9fa;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .logo {
+            max-width: 180px;
+            height: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .hero-image {
+            height: 100vh;
+            background-image: url('https://via.placeholder.com/1920x1080');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-text {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 0 20px;
+        }
+
+        .dynamic-text {
+            font-size: 2em;
+            margin: 20px 0;
+            min-height: 60px;
+        }
+
+        .button {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            .header {
+                padding: 15px 20px;
+            }
+            .logo {
+                max-width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src="qa.png" alt="QA logo" class="logo">
+        <nav class="nav-menu">
+            <a href="#quality-engineering">Quality Engineering</a>
+            <a href="#quality-assurance">Quality Assurance</a>
+            <a href="#ci-cd">CI/CD</a>
+            <a href="#devops">DevOps</a>
+            <a href="#agile">Agile</a>
+        </nav>
+    </header>
+
+    <section class="hero-image">
+        <div class="hero-text">
+            <h1>Welkom bij Quality Accelerators</h1>
+            <div id="dynamicText" class="dynamic-text"></div>
+            <a href="#contact" class="button">Neem contact op</a>
+        </div>
+    </section>
+
+    <script>
+        const teksten = [
+            "Innovatieve kwaliteitsoplossingen",
+            "End-to-end testautomatisering",
+            "DevOps & CI/CD expertise",
+            "Agile kwaliteitsstrategieën",
+            "Continuous Quality Improvement"
+        ];
+
+        let currentIndex = 0;
+        const textElement = document.getElementById('dynamicText');
+
+        function updateText() {
+            textElement.style.opacity = 0;
+            setTimeout(() => {
+                textElement.textContent = teksten[currentIndex];
+                textElement.style.opacity = 1;
+                currentIndex = (currentIndex + 1) % teksten.length;
+            }, 500);
+        }
+
+        updateText();
+        setInterval(updateText, 4000);
+
+        window.onload = function() {
+            document.body.style.opacity = 1;
+        };
+    </script>
+</body>
+</html>
