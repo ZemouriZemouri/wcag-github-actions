@@ -1,11 +1,10 @@
 name: Pa11y Accessibility Audit
 
 on:
-  workflow_dispatch:
-  pull_request:       
-  push:               
-    branches:
-      - main
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   pa11y_test:

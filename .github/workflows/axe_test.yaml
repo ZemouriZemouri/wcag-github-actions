@@ -3,6 +3,8 @@ name: Axe Accessibility Tests
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   axe-test:
