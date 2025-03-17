@@ -1,151 +1,183 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quality-Accelerators</title>
+    <!-- Bestaande meta tags en titel -->
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+        /* Bestaande stijlen blijven behouden */
+
+        /* Sidebar stijlen */
+        .sidebar {
+            position: fixed;
+            right: -300px;
+            top: 0;
+            width: 300px;
+            height: 100%;
+            background-color: #fff;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
         }
 
-        .header {
-            background-color: #f8f9fa;
-            padding: 20px 40px;
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1100;
+        }
+
+        .highlight-item {
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            transition: transform 0.2s;
+        }
+
+        .highlight-item:hover {
+            transform: translateX(5px);
+        }
+
+        /* Footer stijlen */
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 40px 20px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
-        .logo {
-            max-width: 180px;
-            height: auto;
-        }
-
-        .nav-menu {
-            display: flex;
+            flex-wrap: wrap;
             gap: 30px;
         }
 
-        .nav-menu a {
-            color: #2c3e50;
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-section h3 {
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        .footer-section a {
+            color: #ddd;
             text-decoration: none;
-            font-weight: 600;
-            padding: 10px 15px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-menu a:hover {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .hero-image {
-            height: 100vh;
-            background-image: url('https://via.placeholder.com/1920x1080');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-        }
-
-        .hero-text {
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 40px;
-            border-radius: 10px;
-            max-width: 800px;
-            margin: 0 20px;
-        }
-
-        .dynamic-text {
-            font-size: 2em;
-            margin: 20px 0;
-            min-height: 60px;
-        }
-
-        .button {
-            background-color: #007bff;
-            color: white;
-            padding: 15px 30px;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-            display: inline-block;
-            margin-top: 20px;
-        }
-
-        .button:hover {
-            background-color: #0056b3;
+            display: block;
+            margin-bottom: 8px;
         }
 
         @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
+            .sidebar {
+                width: 250px;
+                right: -250px;
             }
-            .header {
-                padding: 15px 20px;
-            }
-            .logo {
-                max-width: 150px;
+            
+            .footer-section {
+                flex: 100%;
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <img src="qa.png" alt="QA logo" class="logo">
-        <nav class="nav-menu">
-            <a href="#quality-engineering">Quality Engineering</a>
-            <a href="#quality-assurance">Quality Assurance</a>
-            <a href="#ci-cd">CI/CD</a>
-            <a href="#devops">DevOps</a>
-            <a href="#agile">Agile</a>
-        </nav>
-    </header>
+    <!-- Bestaande header en hero section -->
 
-    <section class="hero-image">
-        <div class="hero-text">
-            <h1>Welkom bij Quality Accelerators!</h1>
-            <div id="dynamicText" class="dynamic-text"></div>
-            <a href="#contact" class="button">Neem contact op</a>
+    <!-- Sidebar toggle knop -->
+    <button class="sidebar-toggle" onclick="toggleSidebar()">📌 Highlights</button>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <h2>Onze Highlights</h2>
+        <div id="highlightsContainer"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: info@qualityaccelerators.nl</p>
+                <p>Tel: 010-1234567</p>
+                <p>Adres: Coolsingel 1, Rotterdam</p>
+            </div>
+            <div class="footer-section">
+                <h3>Links</h3>
+                <a href="#">Privacybeleid</a>
+                <a href="#">Algemene voorwaarden</a>
+                <a href="#">Vacatures</a>
+            </div>
+            <div class="footer-section">
+                <h3>Volg ons</h3>
+                <a href="#">LinkedIn</a>
+                <a href="#">Twitter</a>
+                <a href="#">GitHub</a>
+            </div>
         </div>
-    </section>
+    </footer>
 
     <script>
-        const teksten = [
-            "Innovatieve kwaliteitsoplossingen",
-            "End-to-end testautomatisering",
-            "DevOps & CI/CD expertise",
-            "Agile kwaliteitsstrategieën",
-            "Continuous Quality Improvement"
-        ];
+        // Bestaande script voor dynamische tekst
 
-        let currentIndex = 0;
-        const textElement = document.getElementById('dynamicText');
-
-        function updateText() {
-            textElement.style.opacity = 0;
-            setTimeout(() => {
-                textElement.textContent = teksten[currentIndex];
-                textElement.style.opacity = 1;
-                currentIndex = (currentIndex + 1) % teksten.length;
-            }, 500);
+        // Sidebar functionaliteit
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
         }
 
-        updateText();
-        setInterval(updateText, 4000);
+        // Highlights data
+        const highlights = [
+            {
+                title: "Testautomatisering",
+                content: "Geavanceerde testautomatiseringsoplossingen voor snellere releases"
+            },
+            {
+                title: "CI/CD Pipelines",
+                content: "Optimalisatie van implementatieprocessen met geautomatiseerde pipelines"
+            },
+            {
+                title: "Agile Coaching",
+                content: "Implementatie van Agile methodologieën voor betere samenwerking"
+            },
+            {
+                title: "Performance Testing",
+                content: "Uitgebreide prestatie- en belastingstests voor kritieke systemen"
+            }
+        ];
 
-        window.onload = function() {
-            document.body.style.opacity = 1;
-        };
+        // Genereer highlights
+        const highlightsContainer = document.getElementById('highlightsContainer');
+        highlights.forEach(highlight => {
+            const div = document.createElement('div');
+            div.className = 'highlight-item';
+            div.innerHTML = `<h4>${highlight.title}</h4><p>${highlight.content}</p>`;
+            highlightsContainer.appendChild(div);
+        });
+
+        // Sluit sidebar bij klik buiten
+        document.addEventListener('click', (event) => {
+            const sidebar = document.getElementById('sidebar');
+            const toggleBtn = document.querySelector('.sidebar-toggle');
+            
+            if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
     </script>
 </body>
 </html>
