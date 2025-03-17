@@ -12,10 +12,23 @@ This is a demo repository to illustrate how to test web accessibility (based on 
     |             └── pa11y_test.yaml         # Accessibility Test library
     ├── public
     ├── src
+	|    |
+	│    └── App.tsx                       	  # React app
+	│    └── ...                       	  
+    |	 |
     │    └── components                       # Custom components
     │           ├── image.jpeg
     │           └── ...
     └── ...
+
+## Demo
+
+- Demo project is based on a [React](https://react.dev/) web application
+- To start the React app ( _App.tsx_ ):
+
+```
+npm start
+```
 
 ## Requirements
 
