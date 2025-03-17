@@ -15,7 +15,7 @@ This is a demo repository to illustrate how to test web accessibility (based on 
 	|    |
 	│    └── App.tsx                       	  # React app
 	│    └── ...                       	  
-    |	 |
+    |    |
     │    └── components                       # Custom components
     │           ├── image.jpeg
     │           └── ...
