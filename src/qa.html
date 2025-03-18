@@ -3,149 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quality-Accelerators</title>
+    <title>Quality Accelerators</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
+        /* Nieuwe header stijlen */
         .header {
-            background-color: #f8f9fa;
-            padding: 20px 40px;
+            background-color: #2c3e50;
+            padding: 1rem 2rem;
             display: flex;
-            justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: relative;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .logo {
-            max-width: 180px;
-            height: auto;
+            height: 50px;
+            transition: transform 0.3s ease;
         }
 
-        .nav-menu {
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        /* Body layout voor footer */
+        body {
             display: flex;
-            gap: 30px;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
         }
 
-        .nav-menu a {
-            color: #2c3e50;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 10px 15px;
-            border-radius: 5px;
+        /* Main content area */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        /* Aangepaste footer positionering */
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 40px 20px;
+            margin-top: auto;
+        }
+
+        /* Bestaande sidebar en andere stijlen blijven hetzelfde */
+        .sidebar {
+            position: fixed;
+            right: -300px;
+            top: 0;
+            width: 300px;
+            height: 100%;
+            background-color: #fff;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
         }
 
-        .nav-menu a:hover {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .hero-image {
-            height: 100vh;
-            background-image: url('https://via.placeholder.com/1920x1080');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-        }
-
-        .hero-text {
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 40px;
-            border-radius: 10px;
-            max-width: 800px;
-            margin: 0 20px;
-        }
-
-        .dynamic-text {
-            font-size: 2em;
-            margin: 20px 0;
-            min-height: 60px;
-        }
-
-        .button {
-            background-color: #007bff;
-            color: white;
-            padding: 15px 30px;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-            display: inline-block;
-            margin-top: 20px;
-        }
-
-        .button:hover {
-            background-color: #0056b3;
-        }
-
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-            }
-            .header {
-                padding: 15px 20px;
-            }
-            .logo {
-                max-width: 150px;
-            }
-        }
+        /* ... overige bestaande CSS ... */
     </style>
 </head>
 <body>
+    <!-- Nieuwe header met logo -->
     <header class="header">
-        <img src="qa.png" alt="QA logo" class="logo">
-        <nav class="nav-menu">
-            <a href="#quality-engineering">Quality Engineering</a>
-            <a href="#quality-assurance">Quality Assurance</a>
-            <a href="#ci-cd">CI/CD</a>
-            <a href="#devops">DevOps</a>
-            <a href="#agile">Agile</a>
-        </nav>
+        <a href="/">
+            <img src="qa.png" alt="Quality Accelerators Logo" class="logo">
+        </a>
     </header>
 
-    <section class="hero-image">
-        <div class="hero-text">
-            <h1>Welkom bij Quality Accelerators!</h1>
-            <div id="dynamicText" class="dynamic-text"></div>
-            <a href="#contact" class="button">Neem contact op</a>
+    <!-- Main content area -->
+    <div class="main-content">
+        <!-- Bestaande hero section zou hier komen -->
+        <h1>Welkom bij Quality Accelerators</h1>
+    </div>
+
+    <!-- Sidebar toggle knop -->
+    <button class="sidebar-toggle" onclick="toggleSidebar()">📌 Highlights</button>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <h2>Onze Highlights</h2>
+        <div id="highlightsContainer"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <!-- Bestaande footer content -->
         </div>
-    </section>
+    </footer>
 
     <script>
-        const teksten = [
-            "Innovatieve kwaliteitsoplossingen",
-            "End-to-end testautomatisering",
-            "DevOps & CI/CD expertise",
-            "Agile kwaliteitsstrategieën",
-            "Continuous Quality Improvement"
-        ];
+        // Bestaande script voor dynamische tekst
 
-        let currentIndex = 0;
-        const textElement = document.getElementById('dynamicText');
-
-        function updateText() {
-            textElement.style.opacity = 0;
-            setTimeout(() => {
-                textElement.textContent = teksten[currentIndex];
-                textElement.style.opacity = 1;
-                currentIndex = (currentIndex + 1) % teksten.length;
-            }, 500);
+        // Sidebar functionaliteit
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
         }
 
-        updateText();
-        setInterval(updateText, 4000);
+        // Highlights data
+        const highlights = [
+            {
+                title: "Testautomatisering",
+                content: "Geavanceerde testautomatiseringsoplossingen voor snellere releases"
+            },
+            {
+                title: "CI/CD Pipelines",
+                content: "Optimalisatie van implementatieprocessen met geautomatiseerde pipelines"
+            },
+            {
+                title: "Agile Coaching",
+                content: "Implementatie van Agile methodologieën voor betere samenwerking"
+            },
+            {
+                title: "Performance Testing",
+                content: "Uitgebreide prestatie- en belastingstests voor kritieke systemen"
+            }
+        ];
 
-        window.onload = function() {
-            document.body.style.opacity = 1;
-        };
+        // Genereer highlights
+        const highlightsContainer = document.getElementById('highlightsContainer');
+        highlights.forEach(highlight => {
+            const div = document.createElement('div');
+            div.className = 'highlight-item';
+            div.innerHTML = `<h4>${highlight.title}</h4><p>${highlight.content}</p>`;
+            highlightsContainer.appendChild(div);
+        });
+
+        // Sluit sidebar bij klik buiten
+        document.addEventListener('click', (event) => {
+            const sidebar = document.getElementById('sidebar');
+            const toggleBtn = document.querySelector('.sidebar-toggle');
+            
+            if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
     </script>
 </body>
 </html>
